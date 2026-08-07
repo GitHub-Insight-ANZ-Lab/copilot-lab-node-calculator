@@ -8,9 +8,15 @@ app.use(express.static('public'));
 const routes = require("./api/routes");
 routes(app);
 
+app.use(function(err, _req, res, _next) {
+    res.status(400).json({ error: err.message });
+});
+
 if (!module.parent) {
     app.listen(port, () => {
         console.log(`Server running on port ${port}`);
+        // add link to the browser in the console
+        console.log(`http://localhost:${port}`);
     });
 }
 
